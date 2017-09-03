@@ -8,10 +8,10 @@ defmodule MindjammerWorldCivilisationTypeTest do
       assert(Worker.civilisation_type(-7, :lost_colony) == :failing)
       assert(Worker.civilisation_type(5,  :lost_colony) == :failing)
     end
-    test "when given -6/-5/2, :lost_colony is :regressed" do
-      assert(Worker.civilisation_type(-6, :lost_colony) == :regressed)
-      assert(Worker.civilisation_type(-5, :lost_colony) == :regressed)
-      assert(Worker.civilisation_type(2,  :lost_colony) == :regressed)
+    test "when given -6/-5/2, :lost_colony is :regressed_world" do
+      assert(Worker.civilisation_type(-6, :lost_colony) == :regressed_world)
+      assert(Worker.civilisation_type(-5, :lost_colony) == :regressed_world)
+      assert(Worker.civilisation_type(2,  :lost_colony) == :regressed_world)
     end
     test "when given -4, :lost_colony is :alien_civilisation" do
       assert(Worker.civilisation_type(-4, :lost_colony) == :alien_civilisation)
@@ -22,10 +22,10 @@ defmodule MindjammerWorldCivilisationTypeTest do
     test "when given -2, :lost_colony is :industrial_world" do
       assert(Worker.civilisation_type(-2, :lost_colony) == :industrial_world)
     end
-    test "when given -1, 0, 1, :lost_colony is :balkanised_world" do
-      assert(Worker.civilisation_type(-1, :lost_colony) == :balkanised)
-      assert(Worker.civilisation_type(0,  :lost_colony) == :balkanised)
-      assert(Worker.civilisation_type(1,  :lost_colony) == :balkanised)
+    test "when given -1, 0, 1, :lost_colony is :balkanised_world_world" do
+      assert(Worker.civilisation_type(-1, :lost_colony) == :balkanised_world)
+      assert(Worker.civilisation_type(0,  :lost_colony) == :balkanised_world)
+      assert(Worker.civilisation_type(1,  :lost_colony) == :balkanised_world)
     end
     test "when given 3, :lost_colony is :agri_world" do
       assert(Worker.civilisation_type(3, :lost_colony) == :agri_world)
@@ -46,11 +46,11 @@ defmodule MindjammerWorldCivilisationTypeTest do
     test "when given -8, :rediscovered is :failing" do
       assert(Worker.civilisation_type(-8, :rediscovered) == :failing)
     end
-    test "when given -7/-6/-5/2, :rediscovered is :regressed" do
-      assert(Worker.civilisation_type(-7, :rediscovered) == :regressed)
-      assert(Worker.civilisation_type(-6, :rediscovered) == :regressed)
-      assert(Worker.civilisation_type(-5, :rediscovered) == :regressed)
-      assert(Worker.civilisation_type(2,  :rediscovered) == :regressed)
+    test "when given -7/-6/-5/2, :rediscovered is :regressed_world" do
+      assert(Worker.civilisation_type(-7, :rediscovered) == :regressed_world)
+      assert(Worker.civilisation_type(-6, :rediscovered) == :regressed_world)
+      assert(Worker.civilisation_type(-5, :rediscovered) == :regressed_world)
+      assert(Worker.civilisation_type(2,  :rediscovered) == :regressed_world)
     end
     test "when given -4/-3, :rediscovered is :holdout" do
       assert(Worker.civilisation_type(-4, :rediscovered) == :holdout)
@@ -59,9 +59,9 @@ defmodule MindjammerWorldCivilisationTypeTest do
     test "when given -2, :rediscovered is :industrial_world" do
       assert(Worker.civilisation_type(-2, :rediscovered) == :industrial_world)
     end
-    test "when given -1/1, :rediscovered is :balkanised_world" do
-      assert(Worker.civilisation_type(-1, :rediscovered) == :balkanised)
-      assert(Worker.civilisation_type(1,  :rediscovered) == :balkanised)
+    test "when given -1/1, :rediscovered is :balkanised_world_world" do
+      assert(Worker.civilisation_type(-1, :rediscovered) == :balkanised_world)
+      assert(Worker.civilisation_type(1,  :rediscovered) == :balkanised_world)
     end
     test "when given 0, :rediscovered is :united_world" do
       assert(Worker.civilisation_type(0, :rediscovered) == :united_world)

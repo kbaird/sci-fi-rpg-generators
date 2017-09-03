@@ -39,11 +39,11 @@ defmodule MindjammerWorld.TypeWorker do
   ### PRIVATE FUNCTIONS
 
   defp do_civilisation_type(roll, :lost_colony)  when roll < -6,         do: :failing
-  defp do_civilisation_type(roll, :lost_colony)  when roll in [-6,-5,2], do: :regressed
+  defp do_civilisation_type(roll, :lost_colony)  when roll in [-6,-5,2], do: :regressed_world
   defp do_civilisation_type(-4,   :lost_colony), do: :alien_civilisation
   defp do_civilisation_type(-3,   :lost_colony), do: :holdout
   defp do_civilisation_type(-2,   :lost_colony), do: :industrial_world
-  defp do_civilisation_type(roll, :lost_colony)  when roll in (-1..1),   do: :balkanised
+  defp do_civilisation_type(roll, :lost_colony)  when roll in (-1..1),   do: :balkanised_world
   defp do_civilisation_type(3,    :lost_colony), do: :agri_world
   defp do_civilisation_type(4,    :lost_colony), do: :united_world
   defp do_civilisation_type(5,    :lost_colony), do: :failing
@@ -52,12 +52,12 @@ defmodule MindjammerWorld.TypeWorker do
   defp do_civilisation_type(8,    :lost_colony), do: :interstellar_hub
 
   defp do_civilisation_type(roll, :rediscovered) when roll < -7, do: :failing
-  defp do_civilisation_type(roll, :rediscovered) when roll < -4, do: :regressed
+  defp do_civilisation_type(roll, :rediscovered) when roll < -4, do: :regressed_world
   defp do_civilisation_type(roll, :rediscovered) when roll < -2, do: :holdout
   defp do_civilisation_type(-2,   :rediscovered), do: :industrial_world
-  defp do_civilisation_type(roll, :rediscovered) when roll in [-1,1], do: :balkanised
+  defp do_civilisation_type(roll, :rediscovered) when roll in [-1,1], do: :balkanised_world
   defp do_civilisation_type(0,    :rediscovered), do: :united_world
-  defp do_civilisation_type(2,    :rediscovered), do: :regressed
+  defp do_civilisation_type(2,    :rediscovered), do: :regressed_world
   defp do_civilisation_type(3,    :rediscovered), do: :agri_world
   defp do_civilisation_type(4,    :rediscovered), do: :culture_world
   defp do_civilisation_type(5,    :rediscovered), do: :culture_world
