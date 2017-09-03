@@ -3,16 +3,9 @@ defmodule MindjammerWorld do
   Documentation for MindjammerWorld.
   """
 
-  @doc """
-  Hello world.
+  alias MindjammerWorld.Worker
 
-  ## Examples
-
-      iex> MindjammerWorld.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def make(inhabitation_type) do
+    Worker.make_world(inhabitation_type)
   end
 end

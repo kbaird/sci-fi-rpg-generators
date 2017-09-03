@@ -12,6 +12,15 @@ defmodule MindjammerWorld.Worker do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
+  def make_world(inhabitation_type) do
+    {type_label, civ_mod} = planetary_type = roll() |> planetary_type()
+    %{
+      planetary_type:    type_label,
+      civilisation_type: civilisation_type(roll() + civ_mod,
+                                           inhabitation_type)
+    }
+  end
+
   def civilisation_type(roll, inhabitation_type) do
     GenServer.call(__MODULE__, {:civilisation_type, roll, inhabitation_type})
   end
@@ -41,6 +50,8 @@ defmodule MindjammerWorld.Worker do
   end
 
   ### PRIVATE FUNCTIONS
+
+  defp roll, do: df(4)
 
   defp do_civilisation_type(roll, :lost_colony)  when roll < -6,         do: :failing
   defp do_civilisation_type(roll, :lost_colony)  when roll in [-6,-5,2], do: :regressed
