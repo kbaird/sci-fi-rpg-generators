@@ -86,9 +86,82 @@ defmodule MindjammerWorldCivilisationTypeTest do
     test "when given -8, :commonality is :failing" do
       assert(Worker.civilisation_type(-8, :commonality) == :failing)
     end
+    test "when given -7/5, :commonality is :instrumentality_hub" do
+      assert(Worker.civilisation_type(-7, :commonality) == :instrumentality_hub)
+      assert(Worker.civilisation_type(5,  :commonality) == :instrumentality_hub)
+    end
+    test "when given -6, :commonality is :synth_colony" do
+      assert(Worker.civilisation_type(-6, :commonality) == :synth_colony)
+    end
+    test "when given -5/2, :commonality is :corporacy_world" do
+      assert(Worker.civilisation_type(-5, :commonality) == :corporacy_world)
+      assert(Worker.civilisation_type(2,  :commonality) == :corporacy_world)
+    end
+    test "when given -4, :commonality is :depot" do
+      assert(Worker.civilisation_type(-4, :commonality) == :depot)
+    end
+    test "when given -3, :commonality is :seed_colony" do
+      assert(Worker.civilisation_type(-3, :commonality) == :seed_colony)
+    end
+    test "when given -2, :commonality is :industrial_world" do
+      assert(Worker.civilisation_type(-2, :commonality) == :industrial_world)
+    end
+    test "when given -1/0/1, :commonality is :commonality_civilisation" do
+      assert(Worker.civilisation_type(-1, :commonality) == :commonality_civilisation)
+      assert(Worker.civilisation_type(0,  :commonality) == :commonality_civilisation)
+      assert(Worker.civilisation_type(1,  :commonality) == :commonality_civilisation)
+    end
+    test "when given 3, :commonality is :agri_world" do
+      assert(Worker.civilisation_type(3, :commonality) == :agri_world)
+    end
+    test "when given 4, :commonality is :quarantined_world" do
+      assert(Worker.civilisation_type(4, :commonality) == :quarantined_world)
+    end
+    test "when given 6/7, :commonality is :high_population_world" do
+      assert(Worker.civilisation_type(6, :commonality) == :high_population_world)
+      assert(Worker.civilisation_type(7, :commonality) == :high_population_world)
+    end
+    test "when given 8, :commonality is :commonality_hub" do
+      assert(Worker.civilisation_type(8, :commonality) == :commonality_hub)
+    end
 
     test "when given -8, :core is :prison_closed_world" do
       assert(Worker.civilisation_type(-8, :core) == :"prison/closed_world")
+    end
+    test "when given -7, :core is :instrumentality_hub" do
+      assert(Worker.civilisation_type(-7, :core) == :instrumentality_hub)
+    end
+    test "when given -6/-5, :core is :high_population_world" do
+      assert(Worker.civilisation_type(-6, :core) == :high_population_world)
+      assert(Worker.civilisation_type(-5, :core) == :high_population_world)
+    end
+    test "when given -4, :core is :depot" do
+      assert(Worker.civilisation_type(-4, :core) == :depot)
+    end
+    test "when given -3/-2, :core is :industrial_world" do
+      assert(Worker.civilisation_type(-3, :core) == :industrial_world)
+      assert(Worker.civilisation_type(-2, :core) == :industrial_world)
+    end
+    test "when given -1/0/1, :core is :core_world" do
+      assert(Worker.civilisation_type(-1, :core) == :core_world)
+      assert(Worker.civilisation_type(0,  :core) == :core_world)
+      assert(Worker.civilisation_type(1,  :core) == :core_world)
+      assert(Worker.civilisation_type(-2, :core) == :industrial_world)
+    end
+    test "when given -2/3, :core is :core_world" do
+      assert(Worker.civilisation_type(2, :core) == :agri_world)
+      assert(Worker.civilisation_type(3, :core) == :agri_world)
+    end
+    test "when given 4, :core is :quarantined_world" do
+      assert(Worker.civilisation_type(4, :core) == :quarantined_world)
+    end
+    test "when given 5/6/7, :core is :high_population_world" do
+      assert(Worker.civilisation_type(5, :core) == :high_population_world)
+      assert(Worker.civilisation_type(6, :core) == :high_population_world)
+      assert(Worker.civilisation_type(7, :core) == :high_population_world)
+    end
+    test "when given 8, :core is :core_worlds_hub" do
+      assert(Worker.civilisation_type(8, :core) == :core_worlds_hub)
     end
   end
 end

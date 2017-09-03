@@ -69,9 +69,29 @@ defmodule MindjammerWorld.Worker do
   defp do_civilisation_type(7,    :rediscovered), do: :interstellar_civilisation
   defp do_civilisation_type(8,    :rediscovered), do: :interstellar_hub
 
-  defp do_civilisation_type(roll, :commonality)  when roll < -7, do: :failing
+  defp do_civilisation_type(roll, :commonality) when roll < -7, do: :failing
+  defp do_civilisation_type(roll, :commonality) when roll in [-7,5], do: :instrumentality_hub
+  defp do_civilisation_type(-6,   :commonality), do: :synth_colony
+  defp do_civilisation_type(roll, :commonality) when roll in [-5,2], do: :corporacy_world
+  defp do_civilisation_type(-4,   :commonality), do: :depot
+  defp do_civilisation_type(-3,   :commonality), do: :seed_colony
+  defp do_civilisation_type(-2,   :commonality), do: :industrial_world
+  defp do_civilisation_type(roll, :commonality) when roll in (-1..1), do: :commonality_civilisation
+  defp do_civilisation_type(3,    :commonality), do: :agri_world
+  defp do_civilisation_type(4,    :commonality), do: :quarantined_world
+  defp do_civilisation_type(roll, :commonality) when roll < 8, do: :high_population_world
+  defp do_civilisation_type(8,    :commonality), do: :commonality_hub
 
-  defp do_civilisation_type(roll, :core)         when roll < -7, do: :"prison/closed_world"
+  defp do_civilisation_type(roll, :core) when roll < -7,       do: :"prison/closed_world"
+  defp do_civilisation_type(-7,   :core),                      do: :instrumentality_hub
+  defp do_civilisation_type(roll, :core) when roll in [-6,-5], do: :high_population_world
+  defp do_civilisation_type(-4,   :core),                      do: :depot
+  defp do_civilisation_type(roll, :core) when roll < -1,       do: :industrial_world
+  defp do_civilisation_type(roll, :core) when roll < 2,        do: :core_world
+  defp do_civilisation_type(roll, :core) when roll < 4,        do: :agri_world
+  defp do_civilisation_type(4,    :core),                      do: :quarantined_world
+  defp do_civilisation_type(roll, :core) when roll < 8,        do: :high_population_world
+  defp do_civilisation_type(8,   :core),                       do: :core_worlds_hub
 
   defp do_planetary_type(-4), do: {:non_garden_world, -4}
   defp do_planetary_type(roll) when roll < -1, do: {:marginal_garden_world, -2}
