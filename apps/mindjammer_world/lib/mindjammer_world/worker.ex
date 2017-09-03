@@ -13,12 +13,7 @@ defmodule MindjammerWorld.Worker do
   end
 
   def make_world(inhabitation_type) do
-    {type_label, civ_mod} = planetary_type = roll() |> planetary_type()
-    %{
-      planetary_type:    type_label,
-      civilisation_type: civilisation_type(roll() + civ_mod,
-                                           inhabitation_type)
-    }
+    GenServer.call(__MODULE__, {:make_world, inhabitation_type})
   end
 
   def civilisation_type(roll, inhabitation_type) do
@@ -35,6 +30,16 @@ defmodule MindjammerWorld.Worker do
 
   def handle_call({:civilisation_type, roll, inhabitation_type}, _from, state) do
     {:reply, do_civilisation_type(roll, inhabitation_type), state}
+  end
+
+  def handle_call({:make_world, inhabitation_type}, _from, state) do
+    {type_label, civ_mod} = roll() |> do_planetary_type()
+    response = %{
+      planetary_type:    type_label,
+      civilisation_type: do_civilisation_type(roll() + civ_mod,
+                                              inhabitation_type)
+    }
+    {:reply, response, state}
   end
 
   def handle_call({:planetary_type, roll}, _from, state) do
