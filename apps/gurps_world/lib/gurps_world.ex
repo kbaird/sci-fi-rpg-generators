@@ -1,18 +1,7 @@
 defmodule GurpsWorld do
   @moduledoc """
-  Documentation for GurpsWorld.
+  Generates worlds as per Chapter 4 (Basic Worldbuilding) in GURPS Space 4.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> GurpsWorld.hello
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  def generate(_opts), do: :TODO_aggregate_various_worker_calls
 end
