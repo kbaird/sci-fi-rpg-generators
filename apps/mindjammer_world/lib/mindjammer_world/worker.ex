@@ -42,9 +42,24 @@ defmodule MindjammerWorld.Worker do
 
   ### PRIVATE FUNCTIONS
 
-  defp do_civilisation_type(roll, :lost_colony)  when roll < -6, do: :failing
+  defp do_civilisation_type(roll, :lost_colony)  when roll < -6,         do: :failing
+  defp do_civilisation_type(roll, :lost_colony)  when roll in [-6,-5,2], do: :regressed
+  defp do_civilisation_type(-4,   :lost_colony), do: :alien_civilisation
+  defp do_civilisation_type(-3,   :lost_colony), do: :holdout
+  defp do_civilisation_type(-2,   :lost_colony), do: :industrial_world
+  defp do_civilisation_type(roll, :lost_colony)  when roll in (-1..1),   do: :balkanised
+  defp do_civilisation_type(3,    :lost_colony), do: :agri_world
+  defp do_civilisation_type(4,    :lost_colony), do: :united_world
+  defp do_civilisation_type(5,    :lost_colony), do: :failing
+  defp do_civilisation_type(6,    :lost_colony), do: :high_population_world
+  defp do_civilisation_type(7,    :lost_colony), do: :interstellar_civilisation
+  defp do_civilisation_type(8,    :lost_colony), do: :interstellar_hub
+
   defp do_civilisation_type(roll, :rediscovered) when roll < -7, do: :failing
+  defp do_civilisation_type(roll, :rediscovered) when roll < -4, do: :regressed
+
   defp do_civilisation_type(roll, :commonality)  when roll < -7, do: :failing
+
   defp do_civilisation_type(roll, :core)         when roll < -7, do: :"prison/closed_world"
 
   defp do_planetary_type(-4), do: {:non_garden_world, -4}
