@@ -8,6 +8,13 @@ defmodule MindjammerWorldWorkerTest do
     test "is > -5", do: assert(Worker.df(4) > -5)
   end
 
+  describe "civilisation_type" do
+    test "when given -8/-7, :lost_colony is :failing" do
+      assert(Worker.civilisation_type(-8, :lost_colony) == :failing)
+      assert(Worker.civilisation_type(-7, :lost_colony) == :failing)
+    end
+  end
+
   describe "planetary_type" do
     test "is {:non_garden_world, -4} when given -4" do
       assert(Worker.planetary_type(-4) == {:non_garden_world, -4})
