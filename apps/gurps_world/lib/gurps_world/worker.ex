@@ -4,6 +4,10 @@ defmodule GurpsWorld.Worker do
 
   # API
 
+  def df(dice_count) do
+    Enum.reduce((0..dice_count), 0, fn(_, acc) -> :rand.uniform(3) - 2 + acc end)
+  end
+
   def start_link(opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
