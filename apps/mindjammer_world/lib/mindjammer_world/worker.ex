@@ -34,7 +34,10 @@ defmodule MindjammerWorld.Worker do
 
   def handle_call({:make_world, inhabitation_type}, _from, state) do
     {type_label, civ_mod} = roll() |> do_planetary_type()
+    civ_type = do_civilisation_type(roll() + civ_mod,
+                                    inhabitation_type)
     response = %{
+      high_concept:      high_concept(type_label, civ_type),
       planetary_type:    type_label,
       civilisation_type: do_civilisation_type(roll() + civ_mod,
                                               inhabitation_type)
@@ -55,6 +58,20 @@ defmodule MindjammerWorld.Worker do
   end
 
   ### PRIVATE FUNCTIONS
+
+  defp high_concept(type_label, civ_type) do
+    [type_label, civ_type]
+    |> Enum.map(fn(atom) -> snake_case_to_aspect("#{atom}") end)
+    |> Enum.join(" ")
+    |> String.replace("World ", "")
+  end
+
+  defp snake_case_to_aspect(str) do
+    str
+    |> String.split("_")
+    |> Enum.map(&String.capitalize/1)
+    |> Enum.join(" ")
+  end
 
   defp roll, do: df(4)
 
