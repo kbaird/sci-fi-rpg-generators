@@ -42,7 +42,10 @@ defmodule MindjammerWorld.Worker do
 
   ### PRIVATE FUNCTIONS
 
-  defp do_civilisation_type(roll, :lost_colony) when roll < -6, do: :failing
+  defp do_civilisation_type(roll, :lost_colony)  when roll < -6, do: :failing
+  defp do_civilisation_type(roll, :rediscovered) when roll < -7, do: :failing
+  defp do_civilisation_type(roll, :commonality)  when roll < -7, do: :failing
+  defp do_civilisation_type(roll, :core)         when roll < -7, do: :"prison/closed_world"
 
   defp do_planetary_type(-4), do: {:non_garden_world, -4}
   defp do_planetary_type(roll) when roll < -1, do: {:marginal_garden_world, -2}
