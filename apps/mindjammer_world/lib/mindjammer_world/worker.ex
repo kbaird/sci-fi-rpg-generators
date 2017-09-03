@@ -35,7 +35,7 @@ defmodule MindjammerWorld.Worker do
     civ_type = civilisation_type(roll() + civ_mod, inhabitation_type)
     response = %{
       civilisation_type: civ_type,
-      high_concept:      high_concept(type_label, civ_type),
+      high_concept:      high_concept(type_label, inhabitation_type, civ_type),
       planetary_type:    type_label,
     }
     {:reply, response, state}
@@ -51,8 +51,8 @@ defmodule MindjammerWorld.Worker do
 
   ### PRIVATE FUNCTIONS
 
-  defp high_concept(type_label, civ_type) do
-    [type_label, civ_type]
+  defp high_concept(type_label, inhabitation_type, civ_type) do
+    [type_label, inhabitation_type, civ_type]
     |> Enum.map(fn(atom) -> snake_case_to_aspect("#{atom}") end)
     |> Enum.join(" ")
     |> String.replace("World ", "")
