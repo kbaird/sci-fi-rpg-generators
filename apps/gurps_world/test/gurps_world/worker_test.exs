@@ -34,9 +34,24 @@ defmodule GurpsWorldWorkerTest do
       assert(GurpsWorld.Worker.world_type(:hostile, 12)[:size] == :standard)
     end
     test "is :large when given {:hostile, 13}" do
-      assert(GurpsWorld.Worker.world_type(:hostile, 12)[:size] == :large)
+      assert(GurpsWorld.Worker.world_type(:hostile, 13)[:size] == :large)
     end
 
+    test "is :small when given {:barren, 6}" do
+      assert(GurpsWorld.Worker.world_type(:barren, 6)[:size] == :small)
+    end
+    test "is :tiny when given {:barren, 7}" do
+      assert(GurpsWorld.Worker.world_type(:barren, 7)[:size] == :tiny)
+    end
+    test "is :tiny when given {:barren, 10}" do
+      assert(GurpsWorld.Worker.world_type(:barren, 10)[:size] == :tiny)
+    end
+    test "is :asteroid_belt when given {:barren, 11}" do
+      assert(GurpsWorld.Worker.world_type(:barren, 11)[:size] == :asteroid_belt)
+    end
+    test "is :asteroid_belt when given {:barren, 12}" do
+      assert(GurpsWorld.Worker.world_type(:barren, 12)[:size] == :asteroid_belt)
+    end
     test "is :standard when given {:barren, 13}" do
       assert(GurpsWorld.Worker.world_type(:barren, 13)[:size] == :standard)
     end
@@ -51,7 +66,7 @@ defmodule GurpsWorldWorkerTest do
       assert(GurpsWorld.Worker.world_type(:garden, 16)[:size] == :standard)
     end
     test "is :large when given {:garden, 17}" do
-      assert(GurpsWorld.Worker.world_type(:garden, 16)[:size] == :large)
+      assert(GurpsWorld.Worker.world_type(:garden, 17)[:size] == :large)
     end
   end
 
