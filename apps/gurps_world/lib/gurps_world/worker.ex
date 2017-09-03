@@ -8,16 +8,16 @@ defmodule GurpsWorld.Worker do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
-  def world_type(roll) do
-    GenServer.call(__MODULE__, {:world_type, roll})
+  def overall_type(roll) do
+    GenServer.call(__MODULE__, {:overall_type, roll})
   end
 
   # SERVER
 
   def init(:ok), do: {:ok, %{}}
 
-  def handle_call({:world_type, roll}, _from, state) do
-    {:reply, do_world_type(roll), state}
+  def handle_call({:overall_type, roll}, _from, state) do
+    {:reply, do_overall_type(roll), state}
   end
 
   def handle_info(_msg, state), do: {:noreply, state}
@@ -30,7 +30,7 @@ defmodule GurpsWorld.Worker do
 
   ### PRIVATE FUNCTIONS
 
-  defp do_world_type(roll) when roll < 8,  do: :hostile
-  defp do_world_type(roll) when roll < 14, do: :barren
-  defp do_world_type(roll),                do: :garden
+  defp do_overall_type(roll) when roll < 8,  do: :hostile
+  defp do_overall_type(roll) when roll < 14, do: :barren
+  defp do_overall_type(_roll),               do: :garden
 end
