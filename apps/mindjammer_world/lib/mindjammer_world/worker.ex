@@ -57,6 +57,17 @@ defmodule MindjammerWorld.Worker do
 
   defp do_civilisation_type(roll, :rediscovered) when roll < -7, do: :failing
   defp do_civilisation_type(roll, :rediscovered) when roll < -4, do: :regressed
+  defp do_civilisation_type(roll, :rediscovered) when roll < -2, do: :holdout
+  defp do_civilisation_type(-2,   :rediscovered), do: :industrial_world
+  defp do_civilisation_type(roll, :rediscovered) when roll in [-1,1], do: :balkanised
+  defp do_civilisation_type(0,    :rediscovered), do: :united_world
+  defp do_civilisation_type(2,    :rediscovered), do: :regressed
+  defp do_civilisation_type(3,    :rediscovered), do: :agri_world
+  defp do_civilisation_type(4,    :rediscovered), do: :culture_world
+  defp do_civilisation_type(5,    :rediscovered), do: :culture_world
+  defp do_civilisation_type(6,    :rediscovered), do: :high_population_world
+  defp do_civilisation_type(7,    :rediscovered), do: :interstellar_civilisation
+  defp do_civilisation_type(8,    :rediscovered), do: :interstellar_hub
 
   defp do_civilisation_type(roll, :commonality)  when roll < -7, do: :failing
 
