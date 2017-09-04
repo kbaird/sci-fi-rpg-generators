@@ -3,19 +3,24 @@ defmodule MindjammerWorld.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  @worker_names [MindjammerWorld.Worker,
+                 MindjammerWorld.InhabitedTypeWorker]
+
   use Application
 
   def start(_type, _args) do
     # List all child processes to be supervised
-    children = [
+    children =
       # Starts a worker by calling: MindjammerWorld.Worker.start_link(arg)
-      {MindjammerWorld.TypeWorker, name: MindjammerWorld.TypeWorker},
-      {MindjammerWorld.Worker,     name: MindjammerWorld.Worker},
-    ]
+      @worker_names |> Enum.map(&tuplify_worker_name/1)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: MindjammerWorld.Supervisor]
     {:ok, _pid} = Supervisor.start_link(children, opts)
   end
+
+  ### PRIVATE FUNCTIONS
+
+  defp tuplify_worker_name(name), do: {name, name: name}
 end

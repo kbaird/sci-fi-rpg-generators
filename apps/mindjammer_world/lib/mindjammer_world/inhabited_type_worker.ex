@@ -1,4 +1,4 @@
-defmodule MindjammerWorld.TypeWorker do
+defmodule MindjammerWorld.InhabitedTypeWorker do
   @moduledoc false
   use GenServer
 

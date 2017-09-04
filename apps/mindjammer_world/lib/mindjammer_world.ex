@@ -5,7 +5,9 @@ defmodule MindjammerWorld do
 
   alias MindjammerWorld.Worker
 
-  def make(inhabitation_type) do
-    Worker.make_world(inhabitation_type)
+  @inhabited_types ~w(lost_colony rediscovered commonality core)a
+
+  def make(inhabitation_type) when inhabitation_type in @inhabited_types do
+    Worker.make_world(:inhabited, inhabitation_type)
   end
 end

@@ -2,7 +2,7 @@ defmodule MindjammerWorld.Worker do
   @moduledoc false
   use GenServer
 
-  alias MindjammerWorld.TypeWorker
+  alias MindjammerWorld.InhabitedTypeWorker
 
   # API
 
@@ -14,24 +14,24 @@ defmodule MindjammerWorld.Worker do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
-  def make_world(inhabitation_type) do
-    GenServer.call(__MODULE__, {:make_world, inhabitation_type})
+  def make_world(awareness_level, inhabitation_type) do
+    GenServer.call(__MODULE__, {:make_world, awareness_level, inhabitation_type})
   end
 
   def civilisation_type(roll, inhabitation_type) do
-    GenServer.call(TypeWorker, {:civilisation_type, roll, inhabitation_type})
+    GenServer.call(InhabitedTypeWorker, {:civilisation_type, roll, inhabitation_type})
   end
 
-  def planetary_type(roll) do
-    GenServer.call(TypeWorker, {:planetary_type, roll})
+  def planetary_type(roll, :inhabited) do
+    GenServer.call(InhabitedTypeWorker, {:planetary_type, roll})
   end
 
   # SERVER
 
   def init(:ok), do: {:ok, %{}}
 
-  def handle_call({:make_world, inhabitation_type}, _from, state) do
-    {type_label, civ_mod} = roll() |> planetary_type()
+  def handle_call({:make_world, awareness_level, inhabitation_type}, _from, state) do
+    {type_label, civ_mod} = roll() |> planetary_type(awareness_level)
     civ_type = civilisation_type(roll() + civ_mod, inhabitation_type)
     response = %{
       civilisation_type: civ_type,
