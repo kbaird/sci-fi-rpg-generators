@@ -2,7 +2,8 @@ defmodule MindjammerWorld.Worker do
   @moduledoc false
   use GenServer
 
-  alias MindjammerWorld.InhabitedTypeWorker
+  alias MindjammerWorld.{InhabitedTypeWorker,
+                         UnknownTypeWorker}
 
   # API
 
@@ -25,21 +26,39 @@ defmodule MindjammerWorld.Worker do
   def planetary_type(roll, :inhabited) do
     GenServer.call(InhabitedTypeWorker, {:planetary_type, roll})
   end
+  def planetary_type(roll, :inner_system) do
+    GenServer.call(UnknownTypeWorker, {:inner_planetary_type, roll})
+  end
+  def planetary_type(roll, :h_zone) do
+    GenServer.call(UnknownTypeWorker, {:h_zone_planetary_type, roll})
+  end
+  def planetary_type(roll, :outer_system) do
+    GenServer.call(UnknownTypeWorker, {:outer_planetary_type, roll})
+  end
 
   # SERVER
 
   def init(:ok), do: {:ok, %{}}
 
-  def handle_call({:make_world, awareness_level, inhabitation_type}, _from, state) do
-    {type_label, civ_mod} = roll() |> planetary_type(awareness_level)
+  def handle_call({:make_world, :inhabited, inhabitation_type}, _from, state) do
+    {type_label, civ_mod} = roll() |> planetary_type(:inhabited)
     civ_type = civilisation_type(roll() + civ_mod, inhabitation_type)
     response = %{
       civilisation_type: civ_type,
-      high_concept:      high_concept(type_label, inhabitation_type, civ_type),
+      high_concept:      high_concept([type_label, inhabitation_type, civ_type]),
       planetary_type:    type_label,
     }
     {:reply, response, state}
   end
+  def handle_call({:make_world, :unknown, unknown_type}, _from, state) do
+    type_label = roll() |> planetary_type(unknown_type)
+    response = %{
+      high_concept:   high_concept([type_label]),
+      planetary_type: type_label,
+    }
+    {:reply, response, state}
+  end
+
 
   def handle_info(_msg, state), do: {:noreply, state}
 
@@ -51,8 +70,8 @@ defmodule MindjammerWorld.Worker do
 
   ### PRIVATE FUNCTIONS
 
-  defp high_concept(type_label, inhabitation_type, civ_type) do
-    [type_label, inhabitation_type, civ_type]
+  defp high_concept(args) do
+    args
     |> Enum.map(fn(atom) -> snake_case_to_aspect("#{atom}") end)
     |> Enum.join(" ")
     |> String.replace("World ", "")

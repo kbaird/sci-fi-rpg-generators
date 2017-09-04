@@ -4,7 +4,8 @@ defmodule MindjammerWorld.Application do
   @moduledoc false
 
   @worker_names [MindjammerWorld.Worker,
-                 MindjammerWorld.InhabitedTypeWorker]
+                 MindjammerWorld.InhabitedTypeWorker,
+                 MindjammerWorld.UnknownTypeWorker]
 
   use Application
 
