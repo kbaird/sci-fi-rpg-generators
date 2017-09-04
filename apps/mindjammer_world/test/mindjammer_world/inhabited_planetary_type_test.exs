@@ -1,4 +1,4 @@
-defmodule MindjammerWorldPlanetaryTypeTest do
+defmodule MindjammerWorldInhabitedPlanetaryTypeTest do
   use ExUnit.Case
   alias MindjammerWorld.Worker
 
