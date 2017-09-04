@@ -50,8 +50,11 @@ defmodule MindjammerWorld.Worker do
     }
     {:reply, response, state}
   end
-  def handle_call({:make_world, :unknown, unknown_type}, _from, state) do
-    type_label = roll() |> planetary_type(unknown_type)
+  def handle_call({:make_world, :unknown, unknown_type}, from, state) do
+    handle_call({:make_world, :unknown, unknown_type, age: roll()}, from, state)
+  end
+  def handle_call({:make_world, :unknown, unknown_type, age: age}, _from, state) do
+    type_label = (roll() + age) |> planetary_type(unknown_type)
     response = %{
       high_concept:   high_concept([type_label]),
       planetary_type: type_label,
